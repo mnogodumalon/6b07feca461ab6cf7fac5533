@@ -1,0 +1,35 @@
+{
+  "pages": {
+    "en": {
+      "Aktiv": "Active",
+      "Aktivieren & QR-Code": "Activate & QR code",
+      "Aktivieren & QR-Code zeigen": "Activate & show QR code",
+      "Alle Zusammenfassungen haben eine KI-Antwort.": "All summaries have an AI response.",
+      "Bearbeiten": "Edit",
+      "Erste Interaktion aktivieren": "Activate first interaction",
+      "Erste Interaktion anlegen": "Create first interaction",
+      "Erste Veranstaltung anlegen": "Create first event",
+      "Feedbacks der aktiven Interaktion": "Feedback on the active interaction",
+      "Für „{0}“ ist keine Interaktion aktiv — die Teilnehmenden sehen noch kein Formular.": "No interaction is active for \"{0}\" — participants don't see a form yet.",
+      "KI-Antwort ablegen": "Save AI response",
+      "Lege deine erste Veranstaltung an, dann kannst du Interaktionen vorbereiten.": "Create your first event, then you can prepare interactions.",
+      "Neue Interaktion": "New interaction",
+      "Neue Veranstaltung": "New event",
+      "Nicht aktiv": "Not active",
+      "Noch keine Interaktionen — bereite Frage, Vorprompt und Endprompt vor.": "No interactions yet — prepare question, pre-prompt and end prompt.",
+      "Noch keine Referenzstatements eingegangen.": "No reference statements received yet.",
+      "Noch keine Zusammenfassung — starte sie an einer Interaktion.": "No summary yet — start one from an interaction.",
+      "Ohne KI-Antwort": "Without AI response",
+      "QR-Code zeigen": "Show QR code",
+      "Referenzstatements": "Reference statements",
+      "Richte deine erste Veranstaltung ein — danach bereitest du die Interaktionen vor.": "Set up your first event — then you prepare the interactions.",
+      "Zusammenfassen": "Summarize",
+      "Zusammenfassung vom {0}": "Summary from {0}",
+      "{0} ist jetzt aktiv": "{0} is now active",
+      "„{0}“ — aktiv ist: {1}": "\"{0}\" — active: {1}",
+      "„{0}“ — bereite die erste Interaktion vor.": "\"{0}\" — prepare the first interaction.",
+      "„{0}“ — noch keine Interaktion aktiv.": "\"{0}\" — no interaction active yet."
+    }
+  },
+  "v": 1
+}

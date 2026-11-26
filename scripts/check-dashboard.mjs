@@ -810,6 +810,23 @@ if (gridIdx >= 0) {
       noPage.push(`${file}:${line}: ${ent} has the pages ${LINK_PAGES[ent].join(', ')} — say which one: page="<slug>"`);
     }
   }
+  // 27c. 26.11.2026: the plan's public pages have BOUND components (widgets/JoinQr) — a hand-named
+  // entity or slug is how a QR asked for a page that has no link to that entity. A warning: an
+  // overview written before the bound components must not block its next change.
+  const JOIN_PAGES = [{"component": "FeedbackGebenQr", "hook": "useFeedbackGebenLink", "slug": "feedback-geben", "entity": null}, {"component": "AbschlussbewertungQr", "hook": "useAbschlussbewertungLink", "slug": "abschlussbewertung", "entity": null}];
+  if (JOIN_PAGES.length) {
+    const byHand = [];
+    for (const file of files) {
+      if (file.startsWith('src/pages/views/')) continue;   // gate 30b judges the plan's views
+      const text = file === FILE ? code : stripCommentsKeepLayout(readFileSync(file, 'utf8'));
+      for (const m of text.matchAll(/<PublicPageQr\b|\busePublicPageLink\(/g)) {
+        byHand.push(`${file}:${text.slice(0, m.index).split('\n').length}`);
+      }
+    }
+    if (byHand.length) {
+      warnings.push(`A QR / link to a public page is named by hand — use the plan's bound component (src/components/widgets/JoinQr.tsx) instead (${JOIN_PAGES.map(p => `<${p.component}${p.entity ? ' recordId={…}' : ''} /> → ${p.slug}`).join(', ')}):\n  ` + byHand.join('\n  '));
+    }
+  }
   if (noPage.length) {
     errors.push(`A QR code goes to the FIRST public page of its entity unless it names one — with several, pass page="<slug>" (<PublicPageQr entity="…" recordId={…} page="…" />, usePublicPageLink(entity, id, page)):\n  ` + noPage.join('\n  '));
   }
@@ -882,6 +899,7 @@ if (gridIdx >= 0) {
   const VIEWS = 'src/pages/views';
   const VIEW_EDITS = {"src/pages/views/ZusammenfassungView.tsx": ["zusammenfassung_text"]};
   const VIEW_QR = new Set([]);
+  const VIEW_JOIN = {};
   const VIEW_COMPOSE = {"src/pages/views/ZusammenfassungView.tsx": "ansicht/zusammenfassung"};
   const RECORD_VIEWS = {"src/pages/views/ZusammenfassungView.tsx": "ansicht/zusammenfassung"};
   const walkViews = (dir) => {
@@ -910,7 +928,23 @@ if (gridIdx >= 0) {
       if (/KLAR_VIEW_PLACEHOLDER/.test(vsrc) && /Diese Ansicht wird noch gebaut\./.test(vsrc)) {
         errors.push(`${file}: still the generated placeholder — build the view the plan orders (its header lists ROUTE, READS, SHOWS, EDITS, JOIN and the CONTRACT), then drop the placeholder sentence and the KLAR_VIEW_PLACEHOLDER token.`);
       }
-      if (VIEW_QR.has(file) && !/\b(?:PublicPageQr|usePublicPageLink)\b/.test(stripCommentsKeepLayout(vsrc))) {
+      // 30b. the view's QR is BOUND to its page by the plan (26.11.2026, customer build 6b07feca…:
+      // `usePublicPageLink('interaktionen', id)` for a page without a link parameter found no page
+      // and the view said „noch nicht veröffentlicht“ over a published one)
+      const bind = VIEW_JOIN[file];
+      const vcode = stripCommentsKeepLayout(vsrc);
+      if (bind && !/KLAR_VIEW_PLACEHOLDER/.test(vsrc)) {
+        const bound = new RegExp(`<${bind.component}\\b|\\b${bind.hook}\\(`).test(vcode);
+        const byHand = /<PublicPageQr\b|\busePublicPageLink\(/.test(vcode);
+        const place = `<${bind.component}${bind.entity ? ' recordId={<id of the ' + bind.entity + ' record>}' : ''} /> (exported by src/components/widgets/JoinQr.tsx)`;
+        if (!bound && byHand && !bind.entity && !new RegExp(`['"]${bind.slug}['"]`).test(vcode)) {
+          errors.push(`${file}: the QR is asked for by an entity, but the plan's page „${bind.slug}“ is one link for everybody (no link parameter) — no page will match and the view shows „noch nicht veröffentlicht“. Place ${place}; it takes no entity and no record.`);
+        } else if (!bound && byHand) {
+          warnings.push(`${file}: the QR names its page by hand — the plan binds this view to „${bind.slug}“: place ${place}.`);
+        } else if (!bound) {
+          errors.push(`${file}: the plan's view shows a QR code — place ${place}; never a record's link field, never <QrCode value=…> by hand.`);
+        }
+      } else if (VIEW_QR.has(file) && !/\b(?:PublicPageQr|usePublicPageLink)\b/.test(vcode)) {
         errors.push(`${file}: the plan's view shows a QR code — build it from the public page: <PublicPageQr entity="…" recordId={…} /> (import { PublicPageQr } from '@/components/widgets/PublicPageQr'), never from a record's link field.`);
       }
       // 34. EF-28: the editor keeps its own height — a container around it that may shrink

@@ -19,10 +19,19 @@ import { openQrTab, QrCode, type QrCodeProps } from '@/components/widgets/QrCode
 
 let pagesPromise: Promise<PublicPagesConfig | null> | null = null;
 
+/** The slug to look for. A bound component (widgets/JoinQr) names the PLAN's slug; the build keeps
+ *  the owner's live slug for a rebuilt page, so a named slug that is not published falls back to
+ *  the ONE published page about the same entity — never to a page of another entity. */
+function slugFor(cfg: PublicPagesConfig, entity: string, page: string | undefined): string | undefined {
+  if (page === undefined || cfg.pages?.[page] || !entity) return page;
+  const same = Object.entries(cfg.pages ?? {}).filter(([, p]) => p.link_param?.entity === entity);
+  return same.length === 1 ? same[0][0] : page;
+}
+
 /** The join link for ONE record of `entity`: the published page whose link_param
  *  is that entity (or `page` when several are). null while loading, or when no
  *  such page is published yet. */
-export function usePublicPageLink(entity: string, recordId: string | null | undefined, page?: string): { link: string | null; loading: boolean; noDoor?: boolean } {
+export function usePublicPageLink(entity: string, recordId: string | null | undefined, pageProp?: string): { link: string | null; loading: boolean; noDoor?: boolean } {
   const [cfg, setCfg] = useState<PublicPagesConfig | null | undefined>(undefined);
   const [tick, setTick] = useState(0);
   useEffect(() => {
@@ -33,6 +42,7 @@ export function usePublicPageLink(entity: string, recordId: string | null | unde
   }, [tick]);
   const plain = useMemo(() => {
     if (!cfg) return null;
+    const page = slugFor(cfg, entity, pageProp);
     if (!recordId && !(page !== undefined && cfg.pages?.[page] && !cfg.pages[page].link_param)) return null;
     // EF-50: a page named by its slug that is about nobody in particular (no link_param) still
     // has ONE link — the bare page — so an edit link can be built for it too
@@ -44,15 +54,16 @@ export function usePublicPageLink(entity: string, recordId: string | null | unde
     if (!p.link_param) return `${base}#/public/${slug}`;
     if (!recordId) return null;
     return `${base}#/public/${slug}?${encodeURIComponent(p.link_param!.name)}=${encodeURIComponent(recordId)}`;
-  }, [cfg, entity, recordId, page]);
+  }, [cfg, entity, recordId, pageProp]);
   // EF-57: a page with a door per record is reached through the record's OWN link
   // (`&tor=<read>.<write>`) — the plain link opens nothing. The doors are looked up; a record
   // that has none yet (made on the platform) gets its pair here, once.
   const doorSlug = useMemo(() => {
     if (!cfg || !recordId) return null;
+    const page = slugFor(cfg, entity, pageProp);
     const hit = Object.entries(cfg.pages ?? {}).find(([slug, p]) => p.link_param?.entity === entity && (page === undefined || slug === page));
     return hit && hit[1].door_per_record ? hit[0] : null;
-  }, [cfg, entity, recordId, page]);
+  }, [cfg, entity, recordId, pageProp]);
   const [door, setDoor] = useState<{ key: string; link: string | null } | null>(null);
   const doorKey = doorSlug && recordId ? `${doorSlug}:${recordId}` : null;
   useEffect(() => {

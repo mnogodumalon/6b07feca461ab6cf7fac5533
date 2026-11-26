@@ -464,13 +464,13 @@ export const DISPLAY_FIELDS: Record<EntityKey, string[]> = {
     "kuerzel"
   ],
   "feedbacks": [
-    "sendekennung"
+    "kuerzel"
   ],
   "zusammenfassungen": [
     "zusammenfassung_text"
   ],
   "abschlussbewertungen": [
-    "besonders_toll"
+    "kuerzel"
   ]
 };
 

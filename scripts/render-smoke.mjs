@@ -2105,6 +2105,8 @@ async function smokeView(view) {
       }
       vReport.steps.push({ step: 'qr', links, expected });
       if (!links.length) fail(`shows no join link for ${query} — the QR is built with <PublicPageQr …> from the planned page`);
+      // a view the plan binds to a page for everybody (no link parameter) shows that page's bare link
+      else if (links.some(l => planPages.some(p => p && p.slug && !(p.link_param && p.link_param.entity) && l.endsWith(`/public/${p.slug}`)))) { /* bound, fine */ }
       else if (expected && !links.some(l => linkPages.some(p => l.includes(`/public/${p.slug}?${p.link_param.name}=${expected}`)))) {
         fail(`the join link goes elsewhere: ${links[0].slice(0, 160)} — expected a planned page with ?<param>=${expected} (the parent of the record this view was opened for)`);
       }

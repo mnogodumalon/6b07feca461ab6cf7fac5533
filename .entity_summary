@@ -68,7 +68,7 @@ createRecordUrl from the service. Note the lowercase `l` in the service path.
   ✚ EnrichedTeilnehmende adds ONLY veranstaltungName — via enrichTeilnehmende(teilnehmende, { veranstaltungenMap }), all maps required
   → veranstaltung links to app_id 6b07feab1c26f382dcd85056
 - Feedbacks (feedbacks): interaktion!^[applookup/select], kuerzel!^[string/text], feedback_text!^[string/textarea] "Dein Feedback", sendekennung!^[string/text] "Eindeutige Kennung des Absendens"
-  ≡ 3 records at build time
+  ≡ 5 records at build time
   ◈ interaktion → record (interaktionen, EntitySelectStep)
   ⚙ getFeedbacks() · getFeedback(id) · createFeedback(fields) · updateFeedback(id, fields) · deleteFeedback(id) · queryFeedbacks({ filter, orderby, limit, offset, fields }) · countFeedbacks(filter?)
   ✚ EnrichedFeedbacks adds ONLY interaktionName — via enrichFeedbacks(feedbacks, { interaktionenMap }), all maps required
@@ -81,7 +81,7 @@ createRecordUrl from the service. Note the lowercase `l` in the service path.
   ✚ EnrichedZusammenfassungen adds ONLY interaktionName — via enrichZusammenfassungen(zusammenfassungen, { interaktionenMap }), all maps required
   → interaktion links to app_id 6b07feb0c2d6ab7b2b42f3a7
 - Abschlussbewertungen (abschlussbewertungen): veranstaltung!^[applookup/select], kuerzel!^[string/text], besonders_toll^[string/textarea] "Was war besonders toll?", verbesserungen^[string/textarea] "Was kann verbessert werden?", referenzstatement^[string/textarea], email[string/email] "E-Mail-Adresse (freiwillig)", einwilligung[bool] "Ich willige ein, dass mir eine persönliche Auswertung per E-Mail gesendet wird"
-  ≡ 3 records at build time
+  ≡ 4 records at build time
   ◈ veranstaltung → record (veranstaltungen, EntitySelectStep)
   ⚙ getAbschlussbewertungen() · getAbschlussbewertungenEntry(id) · createAbschlussbewertungenEntry(fields) · updateAbschlussbewertungenEntry(id, fields) · deleteAbschlussbewertungenEntry(id) · queryAbschlussbewertungen({ filter, orderby, limit, offset, fields }) · countAbschlussbewertungen(filter?)
   ✚ EnrichedAbschlussbewertungen adds ONLY veranstaltungName — via enrichAbschlussbewertungen(abschlussbewertungen, { veranstaltungenMap }), all maps required

@@ -43,9 +43,9 @@ export interface IntentLink {
 
 export const INTENTS: IntentLink[] = [
   // <custom:intents>
-  { path: '/intents/interaktion-aktivieren', label: { de: 'Interaktion aktivieren', en: 'Activate interaction' }, icon: IconPlayerPlay, description: 'Interaktion aktiv setzen und QR-Code öffnen' },
-  { path: '/intents/feedbacks-zusammenfassen', label: { de: 'Feedbacks zusammenfassen', en: 'Summarise feedback' }, icon: IconListDetails, description: 'Feedbacks einer Interaktion zu einem Text zusammenführen und speichern' },
-  { path: '/intents/ki-antwort-ablegen', label: { de: 'KI-Antwort ablegen', en: 'Store AI answer' }, icon: IconRobot, description: 'Antwort des Chatbots bei der Zusammenfassung ablegen' },
+  { path: '/intents/interaktion-aktivieren', label: { de: 'Interaktion aktivieren', en: 'Activate interaction' }, icon: IconPlayerPlay, description: { de: 'Interaktion aktiv setzen und QR-Code öffnen', en: 'Activate interaction and open QR code' } },
+  { path: '/intents/feedbacks-zusammenfassen', label: { de: 'Feedbacks zusammenfassen', en: 'Summarise feedback' }, icon: IconListDetails, description: { de: 'Feedbacks einer Interaktion zu einem Text zusammenführen und speichern', en: 'Merge feedback from an interaction into one text and save it' } },
+  { path: '/intents/ki-antwort-ablegen', label: { de: 'KI-Antwort ablegen', en: 'Store AI answer' }, icon: IconRobot, description: { de: 'Antwort des Chatbots bei der Zusammenfassung ablegen', en: 'Store the chatbot\'s response in the summary' } },
   // </custom:intents>
 ];
 
@@ -65,5 +65,5 @@ export const INTENTS_PENDING = false;
  * pulsing "werden erstellt …" in every deployed Phase-1 bundle forever — no
  * code path redeploys Phase 1 without the flag (live 03.09.2026).
  */
-export const INTENTS_PENDING_SINCE: string | null = '2026-11-26T09:43:26+00:00';
+export const INTENTS_PENDING_SINCE: string | null = null;
 export const PENDING_MAX_MINUTES = 30;

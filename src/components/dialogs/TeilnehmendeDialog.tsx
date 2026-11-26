@@ -357,7 +357,7 @@ export function TeilnehmendeDialog({ open, onClose, onSubmit, defaultValues, rec
         <Label htmlFor="veranstaltung">{labelFor('veranstaltung')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Combobox
           id="veranstaltung"
-          placeholder="Welche Veranstaltung?"
+          placeholder=""
           items={veranstaltungenListAll.map(r => ({
             id: r.record_id,
             label: displayNameOf('veranstaltungen', r.fields as Record<string, unknown>) || r.record_id,
@@ -377,7 +377,7 @@ export function TeilnehmendeDialog({ open, onClose, onSubmit, defaultValues, rec
         <Label htmlFor="kuerzel">{labelFor('kuerzel')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Input
           id="kuerzel"
-          placeholder="z. B. AB-07"
+          placeholder=""
           value={fields.kuerzel ?? ''}
           onChange={e => setFields(f => ({ ...f, kuerzel: e.target.value }))}
           required
@@ -394,7 +394,7 @@ export function TeilnehmendeDialog({ open, onClose, onSubmit, defaultValues, rec
           id="email"
           type="email"
           inputMode="email"
-          placeholder="z. B. name@beispiel.de"
+          placeholder=""
           value={fields.email ?? ''}
           onChange={e => setFields(f => ({ ...f, email: e.target.value }))}
         />

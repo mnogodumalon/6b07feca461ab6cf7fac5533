@@ -344,7 +344,7 @@ export function AbschlussbewertungenDialog({ open, onClose, onSubmit, defaultVal
         <Label htmlFor="veranstaltung">{labelFor('veranstaltung')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Combobox
           id="veranstaltung"
-          placeholder="Welche Veranstaltung?"
+          placeholder=""
           items={veranstaltungenListAll.map(r => ({
             id: r.record_id,
             label: displayNameOf('veranstaltungen', r.fields as Record<string, unknown>) || r.record_id,
@@ -364,7 +364,7 @@ export function AbschlussbewertungenDialog({ open, onClose, onSubmit, defaultVal
         <Label htmlFor="kuerzel">{labelFor('kuerzel')} <span className="text-destructive" aria-hidden="true">*</span></Label>
         <Input
           id="kuerzel"
-          placeholder="z. B. MK-07"
+          placeholder=""
           value={fields.kuerzel ?? ''}
           onChange={e => setFields(f => ({ ...f, kuerzel: e.target.value }))}
           required
@@ -379,7 +379,7 @@ export function AbschlussbewertungenDialog({ open, onClose, onSubmit, defaultVal
         <Label htmlFor="besonders_toll">{labelFor('besonders_toll')}</Label>
         <Textarea
           id="besonders_toll"
-          placeholder="Was hat dir gefallen?"
+          placeholder=""
           value={fields.besonders_toll ?? ''}
           onChange={e => setFields(f => ({ ...f, besonders_toll: e.target.value }))}
           rows={3}
@@ -391,7 +391,7 @@ export function AbschlussbewertungenDialog({ open, onClose, onSubmit, defaultVal
         <Label htmlFor="verbesserungen">{labelFor('verbesserungen')}</Label>
         <Textarea
           id="verbesserungen"
-          placeholder="Was würdest du ändern?"
+          placeholder=""
           value={fields.verbesserungen ?? ''}
           onChange={e => setFields(f => ({ ...f, verbesserungen: e.target.value }))}
           rows={3}
@@ -403,7 +403,7 @@ export function AbschlussbewertungenDialog({ open, onClose, onSubmit, defaultVal
         <Label htmlFor="referenzstatement">{labelFor('referenzstatement')}</Label>
         <Textarea
           id="referenzstatement"
-          placeholder="Ein Satz zur Weiterempfehlung"
+          placeholder=""
           value={fields.referenzstatement ?? ''}
           onChange={e => setFields(f => ({ ...f, referenzstatement: e.target.value }))}
           rows={3}
@@ -417,7 +417,7 @@ export function AbschlussbewertungenDialog({ open, onClose, onSubmit, defaultVal
           id="email"
           type="email"
           inputMode="email"
-          placeholder="z. B. name@beispiel.de"
+          placeholder=""
           value={fields.email ?? ''}
           onChange={e => setFields(f => ({ ...f, email: e.target.value }))}
         />

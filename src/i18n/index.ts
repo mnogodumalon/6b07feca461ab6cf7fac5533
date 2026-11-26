@@ -1867,7 +1867,7 @@ export const LABELS: Record<CoreLocale, LabelBundle> = {
           "frage": "Question",
           "erlaeuterung": "Explanation",
           "vorprompt": "Pre-prompt",
-          "endprompt": "Final prompt",
+          "endprompt": "End prompt",
           "aktiv": "Active"
         },
         "lookups": {}
@@ -1878,7 +1878,7 @@ export const LABELS: Record<CoreLocale, LabelBundle> = {
         "fields": {
           "einwilligung": "I consent to receiving a personal evaluation by email",
           "veranstaltung": "Event",
-          "kuerzel": "Abbreviation",
+          "kuerzel": "Code",
           "email": "Email address"
         },
         "lookups": {}
@@ -1888,7 +1888,7 @@ export const LABELS: Record<CoreLocale, LabelBundle> = {
         "app_id": "6b07feb2ed2ccef7f54218f4",
         "fields": {
           "interaktion": "Interaction",
-          "kuerzel": "Abbreviation",
+          "kuerzel": "Code",
           "feedback_text": "Your feedback",
           "sendekennung": "Unique identifier of the sender"
         },
@@ -1910,7 +1910,7 @@ export const LABELS: Record<CoreLocale, LabelBundle> = {
         "app_id": "6b07feb3ef7df4ee89d9084f",
         "fields": {
           "veranstaltung": "Event",
-          "kuerzel": "Abbreviation",
+          "kuerzel": "Code",
           "besonders_toll": "What was especially great?",
           "verbesserungen": "What can be improved?",
           "referenzstatement": "Reference statement",
